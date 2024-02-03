@@ -5,4 +5,35 @@
 # some commonly used plugins for development, I hope you enjoy
 # this configuration repo ^-^
 
+# Install the Everforest color scheme
+git submodule init
+git submodule update
 
+# Folders to place the everforest color scheme
+destination_folders=(
+    "$HOME/.vim/autoload/"
+    "$HOME/.vim/colors/"
+    "$HOME/.vim/autoload/airline/themes/"
+    "$HOME/.vim/autoload/lightline/colorscheme/"
+    "$HOME/.vim/doc/"
+)
+
+# Check if the destination folder exists, if not, create
+for folder in "${destination_folders[@]}"; do
+    if [ ! -d "$folder" ]; then
+        mkdir -p "$folder"
+    fi
+done
+
+cp ./everforest/autoload/everforest.vim  ~/.vim/autoload/
+cp ./everforest/colors/everforest.vim    ~/.vim/colors/
+cp ./everforest/autoload/airline/themes/everforest.vim ~/.vim/autoload/airline/themes/
+cp ./everforest/autoload/lightline/colorscheme/everforest.vim ~/.vim/autoload/lightline/colorscheme/
+
+# copy & generate help tags
+cp ./everforest/doc/everforest.txt      ~/.vim/doc/
+vim -c 'helptags ~/.vim/doc/' -c 'qa!'
+
+# Now install the vim configuration
+cp -r ./vimrc ~/.vim_runtime
+sh ~/.vim_runtime/install_awesome_vimrc.sh

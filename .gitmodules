@@ -1,3 +1,6 @@
 [submodule "everforest"]
 	path = everforest
 	url = https://github.com/sainnhe/everforest.git
+[submodule "vimrc"]
+	path = vimrc
+	url = git@github.com:sqduan/vimrc.git
