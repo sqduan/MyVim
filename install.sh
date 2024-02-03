@@ -54,5 +54,16 @@ if [ -f "$vimrc_file" ]; then
     mv "$vimrc_file" "$backup_file"
 fi
 
+# Install the vim awesome configuration
 cp -r ./vimrc ~/.vim_runtime
 sh ~/.vim_runtime/install_awesome_vimrc.sh
+
+#----------------------------------------------------------------
+# Plug-in installation
+#----------------------------------------------------------------
+# Install the vim plugin manager
+plug_manager="https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim"
+if [ ! -f ~/.vim/autoload/plug.vim ]; then
+    curl -fLo ~/.vim/autoload/plug.vim --create-dirs $plug_manager
+fi
+
