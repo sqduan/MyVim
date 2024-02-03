@@ -1,3 +1,5 @@
+#!/bin/bash
+
 # This is the installation script to install the essential
 # requirements for my vim configuration, if you don't mind,
 # you can directly use this as your personal vim configuration
@@ -34,6 +36,23 @@ cp ./everforest/autoload/lightline/colorscheme/everforest.vim ~/.vim/autoload/li
 cp ./everforest/doc/everforest.txt      ~/.vim/doc/
 vim -c 'helptags ~/.vim/doc/' -c 'qa!'
 
+# Install the font, here I choose Fira Code as our default
+# program font
+if pacman -Qs ttf-fira-code >/dev/null 2>&1; then
+    echo "Fira Code font package is installed."
+else
+    echo "Fira Code font package is not installed."
+    sudo pacman -S ttf-fira-code
+fi
+
 # Now install the vim configuration
+vimrc_file="$HOME/.vimrc"
+timestamp=$(date +%Y%m%d%H%M%S)
+backup_file="$HOME/.vimrc_backup_$timestamp"
+
+if [ -f "$vimrc_file" ]; then
+    mv "$vimrc_file" "$backup_file"
+fi
+
 cp -r ./vimrc ~/.vim_runtime
 sh ~/.vim_runtime/install_awesome_vimrc.sh
